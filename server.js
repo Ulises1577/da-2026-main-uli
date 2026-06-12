@@ -1,4 +1,5 @@
 import express from 'express';
+import apiRouter from './api/router.js';
 
 //Creammos la instancia de express
 const app = express();
@@ -6,11 +7,9 @@ const PORT = 3000;
 
 app.use(express.json());
 
-//Definimos una ruta de prueba
-app.get('/', (req, res) => {
-    res.send('¡Hola, el servidor está funcionando!');
-});
+// Ahora todas tus URLs tendrán el prefijo automático http://localhost:3000
+app.use('/', apiRouter);
 
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`🚀 Servidor corriendo exitosamente en http://localhost:${PORT}`);
 });
