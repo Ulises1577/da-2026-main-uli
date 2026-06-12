@@ -1,0 +1,28 @@
+{
+  "name": "da-2026-main-uli",
+  "version": "1.0.0",
+  "description": "Creacion de una API full rest",
+  "homepage": "https://github.com/Ulises1577/da-2026-main-uli#readme",
+  "bugs": {
+    "url": "https://github.com/Ulises1577/da-2026-main-uli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ulises1577/da-2026-main-uli.git"
+  },
+  "license": "ISC",
+  "author": "Ulises Manrique",
+  "type": "module",
+  "main": "archivo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node archivo.js",
+    "dev": "nodemon archivo.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
