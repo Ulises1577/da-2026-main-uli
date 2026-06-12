@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Obtener un usuario específico por ID (GET individual)
-GET http://localhost:3000/users/123
+GET http://localhost:3000/users/3
 
 ### Eliminar un usuario (DELETE)
-DELETE http://localhost:3000/users/123
+DELETE http://localhost:3000/users/3
