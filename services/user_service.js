@@ -1,31 +1,37 @@
-import userMockup from '../mockups/user_mockups.js';
-
-class UserService { 
-    getAllUsers() {
-        return userMockup;  
+class UserService {
+    // 💉 Recibimos la base de datos (o repositorio) desde el exterior
+    constructor(userRepository) {
+        this.repo = userRepository; // Dependemos de la abstracción
     }
-    
+
+    getAllUsers() {
+        // En lugar de usar usersMockup directamente, usamos lo que nos inyectaron
+        return this.repo; 
+    }
+
     getUserById(id) {
-        return userMockup.find(user => user.id === id);
+        return this.repo.find(user => user.id === id);
     }
 
     createUser(userData) {
         const newUser = {
-            id: String(userMockup.length + 1),
-            ...userData 
+            id: String(this.repo.length + 1),
+            ...userData
         };
-        userMockup.push(newUser);
-        return newUser;  
+        this.repo.push(newUser);
+        return newUser;
     }
 
     deleteUser(id) {
-        const index = userMockup.findIndex(user => user.id === id);
+        const index = this.repo.findIndex(user => user.id === id);
         if (index !== -1) {
-            const deletedUser = userMockup.splice(index, 1);
-            return deletedUser[0];  
+            const deletedUser = this.repo.splice(index, 1);
+            return deletedUser[0];
         }
-        return null; 
+        return null;
     }
 }
 
-export default new UserService;
+// OJO: Ya no exportamos "new UserService()" directamente.
+// Exportamos la clase limpia para poder instanciarla inyectándole cosas.
+export default UserService;

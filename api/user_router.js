@@ -1,5 +1,5 @@
 import express from 'express';
-import userService from '../services/user_service.js';
+import userService from '../dependencies.js'; // Importamos el servicio ya ensamblado
 const userRouter = express.Router();
 
 // GET /users -> Obtener todos los usuarios
