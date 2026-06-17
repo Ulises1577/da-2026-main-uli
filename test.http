@@ -6,11 +6,29 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Ulises"
+    "name": "Ulises",
+    "email": "ulisesgabriel@gmail.com"
+}
+
+### Ejemplo de duplicacion de usuario (POST)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name": "Ulises",
+    "email": "ulisesgabriel@gmail.com"
+}
+
+### Modificar Usuario chango
+PATCH http://localhost:3000/users/Ulises
+Content-Type: application/json
+
+{
+    "email": "ulisesgabriel01@gmail.com"
 }
 
 ### Obtener un usuario específico por ID (GET individual)
-GET http://localhost:3000/users/3
+GET http://localhost:3000/users/Ulises
 
 ### Eliminar un usuario (DELETE)
-DELETE http://localhost:3000/users/3
+DELETE http://localhost:3000/users/Ulises

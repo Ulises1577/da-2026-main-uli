@@ -9,11 +9,15 @@ class UserService {
         return this.repo; 
     }
 
-    getUserById(id) {
-        return this.repo.find(user => user.id === id);
+    getUserByUsername(username) {
+        return this.repo.find(user => user.username === username);
     }
 
     createUser(userData) {
+        const existingUser = this.getUserByUsername(userData.username);
+        if (existingUser) {
+            return {error: "El nombre de usuario ya existe. "};
+        }
         const newUser = {
             id: String(this.repo.length + 1),
             ...userData
@@ -22,8 +26,16 @@ class UserService {
         return newUser;
     }
 
-    deleteUser(id) {
-        const index = this.repo.findIndex(user => user.id === id);
+    updateUser(username, updatedData) {
+        const user = this.getUserByUsername(username);
+        if (!user) return null;
+
+        Object.assign(user, updatedData);
+        return user;
+    }
+
+    deleteUser(username) {
+        const index = this.repo.findIndex(user => user.username === username);
         if (index !== -1) {
             const deletedUser = this.repo.splice(index, 1);
             return deletedUser[0];
