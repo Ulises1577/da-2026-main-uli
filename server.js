@@ -11,7 +11,7 @@ app.use(express.json());
 // Ahora todas tus URLs tendrán el prefijo automático http://localhost:3000
 app.use('/', apiRouter);
 
-mongoose.connect('mongodb://localhost:27017/mongo-api')
+mongoose.connect('mongodb://localhost:27017/PrimeraBDD')
     .then(() => {
         console.log('Conexión a MongoDB exitosa en Docker');
         app.listen(PORT, () => {

@@ -6,7 +6,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Ulises",
+    "username": "Nuevop",
     "email": "ulisesgabriel@gmail.com"
 }
 
@@ -15,7 +15,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "name": "Ulises",
+    "username": "Ermac",
     "email": "ulisesgabriel@gmail.com"
 }
 
@@ -24,7 +24,7 @@ PATCH http://localhost:3000/users/Ulises
 Content-Type: application/json
 
 {
-    "email": "ulisesgabriel01@gmail.com"
+    "email": "ulises@uni.com"
 }
 
 ### Obtener un usuario específico por ID (GET individual)

@@ -1,49 +1,38 @@
 class UserService {
-    // 💉 Recibimos la base de datos (o repositorio) desde el exterior
-    constructor(userRepository) {
-        this.repo = userRepository; // Dependemos de la abstracción
+    
+    constructor(userModel) {
+        this.userModel = userModel; 
     }
 
-    getAllUsers() {
+    async getAllUsers() {
         // En lugar de usar usersMockup directamente, usamos lo que nos inyectaron
-        return this.repo; 
+        return await this.userModel.find(); 
     }
 
-    getUserByUsername(username) {
-        return this.repo.find(user => user.username === username);
+    async getUserByUsername(username) {
+        return await this.userModel.findOne({ username: username });
     }
 
-    createUser(userData) {
-        const existingUser = this.getUserByUsername(userData.username);
+    async createUser(userData) {
+        const existingUser = await this.userModel.findOne({ username: userData.username });
         if (existingUser) {
-            return {error: "El nombre de usuario ya existe. "};
+            throw new Error('El nombre de usuario ya existe. ');
         }
-        const newUser = {
-            id: String(this.repo.length + 1),
-            ...userData
-        };
-        this.repo.push(newUser);
-        return newUser;
+
+        return await this.userModel.create(userData);
     }
 
-    updateUser(username, updatedData) {
-        const user = this.getUserByUsername(username);
-        if (!user) return null;
-
-        Object.assign(user, updatedData);
-        return user;
+    async updateUser(username, updatedData) {
+        return await this.userModel.findOneAndUpdate(
+            { username: username },
+            updatedData,
+            { new: true } // Esto hace que retorne el documento actualizado
+        );
     }
 
-    deleteUser(username) {
-        const index = this.repo.findIndex(user => user.username === username);
-        if (index !== -1) {
-            const deletedUser = this.repo.splice(index, 1);
-            return deletedUser[0];
-        }
-        return null;
+    async deleteUser(username) {
+        return await this.userModel.findOneAndDelete({ username: username });
     }
 }
 
-// OJO: Ya no exportamos "new UserService()" directamente.
-// Exportamos la clase limpia para poder instanciarla inyectándole cosas.
 export default UserService;
