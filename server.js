@@ -5,18 +5,16 @@ import config from './config.js';
 
 //Creammos la instancia de express
 const app = express();
-const PORT = 3000;
-
-app.use(express.json());
 
 // Ahora todas tus URLs tendrán el prefijo automático http://localhost:3000
 app.use('/', apiRouter);
+app.use(express.json());
 
-mongoose.connect('config.dbConnection')
+mongoose.connect(config.dbConnection)
     .then(() => {
         console.log('Conexión a MongoDB exitosa en Docker');
-        app.listen(PORT, () => {
-            console.log(`🚀 Servidor corriendo exitosamente en http://localhost:${PORT}`);
+        app.listen(config.port, () => {
+            console.log(`🚀 Servidor corriendo exitosamente en http://localhost:${config.port}`);
         });
     })
     .catch((err) => {
