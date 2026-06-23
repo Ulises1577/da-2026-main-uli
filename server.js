@@ -5,10 +5,8 @@ import config from './config.js';
 
 //Creammos la instancia de express
 const app = express();
-
-// Ahora todas tus URLs tendrán el prefijo automático http://localhost:3000
+app.use(express.json());        
 app.use('/', apiRouter);
-app.use(express.json());
 
 mongoose.connect(config.dbConnection)
     .then(() => {
