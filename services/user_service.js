@@ -14,12 +14,21 @@ class UserService {
     }
 
     async createUser(userData) {
+        //Validacion en nombre de usuario
+        if (!userData.username || userData.username.trim() === '') {
+            throw new Error('El nombre de usuario es obligatorio. ');
+        }
+
+        if (!userData.email || userData.email.trim() === '') {
+            throw new Error('El correo electrónico es obligatorio. ');
+        }
+
         const existingUser = await this.userModel.findOne({ username: userData.username });
         if (existingUser) {
             throw new Error('El nombre de usuario ya existe. ');
         }
-
-        return await this.userModel.create(userData);
+        const newUser = new this.userModel(userData);
+        return await newUser.save();
     }
 
     async updateUser(username, updatedData) {

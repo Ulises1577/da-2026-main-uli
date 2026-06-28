@@ -8,13 +8,20 @@ const app = express();
 app.use(express.json());        
 app.use('/', apiRouter);
 
-mongoose.connect(config.dbConnection)
-    .then(() => {
-        console.log('Conexión a MongoDB exitosa en Docker');
+async function StartServer() {
+    try {
+        console.log('Conectando a la base de datos...');
+
+        await mongoose.connect(config.dbConnection);
+        console.log('Conexion a la base de datos establecida');
+
         app.listen(config.port, () => {
-            console.log(`🚀 Servidor corriendo exitosamente en http://localhost:${config.port}`);
+            console.log(`Servidor escuchando en el puerto ${config.port}`);
         });
-    })
-    .catch((err) => {
-        console.error('Error al conectar a MongoDB:', err,message);
-    });
+    } catch (error) {
+        console.error('Error al iniciar el servidor:', error.message);
+        process.exit(1);
+    }
+}
+
+StartServer();
