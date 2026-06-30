@@ -2,11 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import apiRouter from './api/router.js';
 import config from './config.js'; 
+import logMiddleware from './middlewares/log_middleware.js';
+import errorMiddleware from './middlewares/error_middleware.js';
 
 //Creammos la instancia de express
 const app = express();
-app.use(express.json());        
-app.use('/', apiRouter);
+
+app.use(express.json());
+app.use(logMiddleware); //Registramos la peticion chango        
+app.use('/', apiRouter); //Pues la rutas
+app.use(errorMiddleware); //Registramos los erroress
 
 async function StartServer() {
     try {
