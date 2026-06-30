@@ -1,17 +1,23 @@
 import express from 'express';
 import userService from '../dependencies.js'; // Importamos el servicio ya ensamblado
+import checkAuthorizationTokenMiddleware from '../middlewares/check_autorization_middleware.js';
+import checkRoleMiddleware from '../middlewares/check_role_middleware.js';
 
 const userRouter = express.Router();
 
 // GET ALL
-userRouter.get('/', async (req, res) => {
+userRouter.get('/', 
+    checkAuthorizationTokenMiddleware,
+    checkRoleMiddleware(['admin', 'profesor']),
+    async (req, res, next) => {
     try {
         const users = await userService.getAllUsers();
         res.status(200).json(users);
     } catch (error) {
-        res.status(500).json({ error: "Error al obtener usuarios" });
+        next(error); // Pasar el error al middleware de manejo de errores
     }
-});
+    }
+);
 
 //GET INDIVIDUAL (Por username)
 userRouter.get('/:username', async (req, res) => {
@@ -28,16 +34,12 @@ userRouter.get('/:username', async (req, res) => {
 });
 
 // POST (Crear)
-userRouter.post('/', async (req, res) => {
+userRouter.post('/', async (req, res, next) => {
     try {
         const newUser = await userService.createUser(req.body);
         res.status(201).json(newUser);
     } catch (error) {
-
-        if (error.mesage === "El nombre de usuario ya existe. ") {
-            return res.status(400).json({ error: error.message });
-        }
-        res.status(500).json({ error: "Error al crear usuario" , details: error.message });
+        next(error); //Aca le pasamos el error al middleware de errores wachin
     }
 });
 

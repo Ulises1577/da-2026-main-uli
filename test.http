@@ -6,8 +6,8 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username": "Prueba",
-    "email": "prueba@gmail.com"
+    "username": "Luciano",
+    "email": "maldito@gmail.com"
 }
 
 ### Ejemplo de duplicacion de usuario (POST)
