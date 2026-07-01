@@ -1,4 +1,32 @@
 ### HTTP Request
+
+### Registramos usuario como administrador (POST)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "ulises_admin",
+    "email": "ulises@correo.com",
+    "password": "mi-clave-segura",
+    "role": "admin"
+}
+
+### 2. HACER LOGIN (Genera Token aleatorio en MongoDB y lo devuelve)
+# @name login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "ulises_admin",
+  "password": "mi-clave-segura"
+}
+
+
+### 3. VER LISTA DE USUARIOS (Usa el token dinámico del paso anterior)
+GET http://localhost:3000/users
+Authorization: Bearer {{login.response.body.authorizationToken}}
+
+
 GET http://localhost:3000/users
 
 ### Crear un nuevo usuario (POST)

@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 class UserService {
     
     constructor(userModel) {
@@ -27,6 +29,10 @@ class UserService {
         if (existingUser) {
             throw new Error('El nombre de usuario ya existe. ');
         }
+
+        const saltRounds = 10;
+        userData.password = await bcrypt.hash(userData.password, saltRounds);
+        
         const newUser = new this.userModel(userData);
         return await newUser.save();
     }

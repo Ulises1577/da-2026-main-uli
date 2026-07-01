@@ -1,29 +1,40 @@
-const checkAuthorizationTokenMiddleware = (req, res, next) => {
+import dependencies from '../dependencies.js';
+
+const checkAuthorizationTokenMiddleware =  async (req, res, next) => {
     const authHeader =  req.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({
             status: "error",
-            message: "Acceso denegado. No se proporiciono un token valido"
+            message: "Acceso denegado. No se proporciono un token valido"
         });
     }
 
     const token = authHeader.split(' ')[1];
     // Aquí iría la lógica para verificar el token
 
-    if (token === 'token-secreto-ulises') {
+    try {
+        const session = await dependencies.sessionService.getByToken(token);
+
+        if (!session) {
+            return res.status(401).json({
+                status: "error",
+                message: "Acceso denegado. Token invalido"
+            });
+        }
+
         req.session = {
-            userId: "12345",
-            username: "ulises_admin",
-            role: "admin"
+            username: session.username,
+            role: session.role      
         };
         return next();
 
-    } else {
-        return res.status(403).json({
+    } catch (error) {
+        return res.status(500).json({
             status: "error",
-            message: "Acceso denegado. Token inválido"
-        });
+            message: "Error al verificar el token",
+            details: error.message
+        }); 
     }
 };
 

@@ -1,9 +1,10 @@
 import express from 'express';
-import userService from '../dependencies.js'; // Importamos el servicio ya ensamblado
+import dependencies from '../dependencies.js';
 import checkAuthorizationTokenMiddleware from '../middlewares/check_autorization_middleware.js';
 import checkRoleMiddleware from '../middlewares/check_role_middleware.js';
 
 const userRouter = express.Router();
+const { userService } = dependencies; 
 
 // GET ALL
 userRouter.get('/', 
@@ -45,14 +46,15 @@ userRouter.post('/', async (req, res, next) => {
 
 
 //PATCH (Modificar) 
-userRouter.patch('/', async (req, res) => {
+userRouter.patch('/:username', async (req, res) => {
     try {
-        const newUser = await userService.createUser(req.body);
-        res.status(201).json(newUser);
-    } catch (error) {
-        if (error.mesage === "El nombre de usuario ya existe. ") {
-            return res.status(400).json({ error: error.message });
+        const { username } = req.params;
+        const updatedUser = await userService.updateUser(username, req.body);
+        if (!updatedUser) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
         }
+        res.status(200).json(updatedUser);
+    } catch (error) {
         res.status(500).json({ error: "Error al crear usuario" , details: error.message });
     }
 });
