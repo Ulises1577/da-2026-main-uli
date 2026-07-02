@@ -9,7 +9,7 @@ const { userService } = dependencies;
 // GET ALL
 userRouter.get('/', 
     checkAuthorizationTokenMiddleware,
-    checkRoleMiddleware(['admin', 'profesor']),
+    checkRoleMiddleware(['admin', 'user']),
     async (req, res, next) => {
     try {
         const users = await userService.getAllUsers();

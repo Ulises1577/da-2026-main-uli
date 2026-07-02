@@ -7,9 +7,9 @@ const checkRoleMiddleware = (allowedRoles) => {
             });
     }
 
-    const haPermission = allowedRoles.includes(req.session.role);
+    const hasPermission = allowedRoles.includes(req.session.role);
 
-    if (!haPermission) {
+    if (!hasPermission) {
         return res.status(403).json({
             status: "error",
             message: "Acceso denegado. No tiene permisos para acceder a este recurso"

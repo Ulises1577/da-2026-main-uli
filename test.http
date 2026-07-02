@@ -1,35 +1,54 @@
 ### HTTP Request
 
-### Registramos usuario como administrador (POST)
+### REGISTRAR NUEVO USUARIO 
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username": "ulises_admin",
-    "email": "ulises@correo.com",
+    "username": "ulises_NO_user",
+    "email": "ulises_NO_user@correo.com",
     "password": "mi-clave-segura",
-    "role": "admin"
+    "role": "no-user"
 }
 
-### 2. HACER LOGIN (Genera Token aleatorio en MongoDB y lo devuelve)
+### HACER LOGIN 
 # @name login
 POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "ulises_admin",
+  "username": "ulises_NO_user",
   "password": "mi-clave-segura"
 }
 
 
-### 3. VER LISTA DE USUARIOS (Usa el token dinámico del paso anterior)
+### VER LISTA DE USUARIOS (Usa el token dinámico del paso anterior para la autorización)
 GET http://localhost:3000/users
 Authorization: Bearer {{login.response.body.authorizationToken}}
 
+###
+PATCH http://localhost:3000/users/ulises_NO_user
+Content-Type: application/json
+{
+    "username": "ulises_NO_user",
+    "email": "ulises_NO_user_EDITADO@correo.com"
+}
 
+###
+DELETE http://localhost:3000/users/ulises_NO_user
+
+
+
+
+
+
+
+
+
+### OTROS EJEMPLOS DE PETICIONES
 GET http://localhost:3000/users
 
-### Crear un nuevo usuario (POST)
+###
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -38,7 +57,7 @@ Content-Type: application/json
     "email": "maldito@gmail.com"
 }
 
-### Ejemplo de duplicacion de usuario (POST)
+### 
 POST http://localhost:3000/users
 Content-Type: application/json
 
@@ -47,7 +66,7 @@ Content-Type: application/json
     "email": "ulisesgabriel@gmail.com"
 }
 
-### Modificar Usuario chango
+###
 PATCH http://localhost:3000/users/Ulises
 Content-Type: application/json
 
@@ -56,8 +75,8 @@ Content-Type: application/json
     "email": "prueba@gmail.com"
 }
 
-### Obtener un usuario específico por ID (GET individual)
+### 
 GET http://localhost:3000/users/Ulises
 
-### Eliminar un usuario (DELETE)
+### 
 DELETE http://localhost:3000/users/Ermac
