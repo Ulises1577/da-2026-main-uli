@@ -40,8 +40,30 @@ DELETE http://localhost:3000/users/ulises_NO_user
 
 
 
+### CREAR TURNO
+POST http://localhost:3000/appointments
+Content-Type: application/json
 
+{ 
+    "clientName": "Luciano",
+    "clientEmail": "lucianoApp@correo.com",
+    "date": "2026-10-10T19:30:00.000Z", 
+    "service": "Barba"
+}
 
+### VER TODOS LOS TURNOS
+GET http://localhost:3000/appointments
+
+### CAMBIAR ESTADO DE UN TURNO
+PATCH http://localhost:3000/appointments/6a471c49816cae1748a8a3cd/status
+Content-Type: application/json
+
+{
+    "status": "confirmed"
+}
+
+### BORRAR UN TURNO
+DELETE http://localhost:3000/appointments/6a471c49816cae1748a8a3cd
 
 
 
