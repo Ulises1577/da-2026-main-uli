@@ -53,8 +53,8 @@ PATCH http://localhost:3000/users/ulises_usuario
 Content-Type: application/json
 
 {
-    "username": "ulises_usuario",
-    "email": "ulises_usuario@correo.com"
+    "username": "ulises_usuario10",
+    "email": "ulises_usuario10@correo.com"
 }
 
 ###
@@ -86,7 +86,7 @@ Content-Type: application/json
 }
 
 ### BORRAR UN TURNO
-DELETE http://localhost:3000/appointments/6a471c49816cae1748a8a3cd
+DELETE http://localhost:3000/appointments/6a73c32eaa1050c133c41b78
 
 
 
