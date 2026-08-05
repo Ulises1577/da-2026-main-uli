@@ -49,16 +49,16 @@ GET http://localhost:3000/users
 Authorization: Bearer {{login.response.body.authorizationToken}}
 
 ###
-PATCH http://localhost:3000/users/ulises_NO_user
+PATCH http://localhost:3000/users/ulises_usuario
 Content-Type: application/json
 
 {
-    "username": "ulises_NO_user",
-    "email": "ulises_NO_user_EDITADO@correo.com"
+    "username": "ulises_usuario",
+    "email": "ulises_usuario@correo.com"
 }
 
 ###
-DELETE http://localhost:3000/users/ulises_NO_user
+DELETE http://localhost:3000/users/ulises_usuario
 
 
 
