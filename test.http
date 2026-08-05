@@ -5,22 +5,44 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-    "username": "ulises_NO_user",
-    "email": "ulises_NO_user@correo.com",
+    "username": "ulises_usuario",
+    "email": "ulises_usuario@correo.com",
     "password": "mi-clave-segura",
-    "role": "no-user"
+    "role": "user"
 }
 
-### HACER LOGIN 
+
+### USUARIO ADMIN
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "username": "ulises_admin",
+    "email": "ulises_admin@correo.com",
+    "password": "mi-clave-segura",
+    "role": "admin"
+}
+
+### Login usuario sin permisos de administrador
 # @name login
 POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "ulises_NO_user",
+  "username": "ulises_user",
   "password": "mi-clave-segura"
 }
 
+### Login usuario con permisos de administrador
+# @name login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "username": "ulises_admin",
+  "password": "mi-clave-segura"
+}
 
 ### VER LISTA DE USUARIOS (Usa el token dinámico del paso anterior para la autorización)
 GET http://localhost:3000/users
@@ -29,6 +51,7 @@ Authorization: Bearer {{login.response.body.authorizationToken}}
 ###
 PATCH http://localhost:3000/users/ulises_NO_user
 Content-Type: application/json
+
 {
     "username": "ulises_NO_user",
     "email": "ulises_NO_user_EDITADO@correo.com"

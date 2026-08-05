@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Servicio de la Base de Datos (MongoDB)
+  mongo:
+    image: mongo:latest
+    container_name: mongo_api_dev
+    restart: always
+    ports:
+      - "27017:27017" # Mapea el puerto a tu máquina
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: mi_base_de_datos
+    volumes:
+      - mongo_data_dev:/data/db
+
+volumes:
+  mongo_data_dev: # Volumen aislado para esta base de datos
