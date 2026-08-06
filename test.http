@@ -3,6 +3,7 @@
 ### REGISTRAR NUEVO USUARIO 
 POST http://localhost:3000/users
 Content-Type: application/json
+Authorization: Bearer {login.response.body.authorizationToken}}
 
 {
     "username": "ulises_usuario",
@@ -16,6 +17,7 @@ Content-Type: application/json
 
 POST http://localhost:3000/users
 Content-Type: application/json
+Authorization: Bearer {{login.response.body.authorizationToken}}
 
 {
     "username": "ulises_admin",
@@ -30,7 +32,7 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-  "username": "ulises_user",
+  "username": "ulises_admin",
   "password": "mi-clave-segura"
 }
 
@@ -51,6 +53,7 @@ Authorization: Bearer {{login.response.body.authorizationToken}}
 ###
 PATCH http://localhost:3000/users/ulises_usuario
 Content-Type: application/json
+Authorization: Bearer {{login.response.body.authorizationToken}}
 
 {
     "username": "ulises_usuario10",
@@ -58,7 +61,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/users/ulises_usuario
+DELETE http://localhost:3000/users/ulises_usuario10
 
 
 
