@@ -60,7 +60,8 @@ userRouter.post('/',checkAuthorizationTokenMiddleware ,checkRoleMiddleware(['adm
 
 
 //PATCH (Modificar) 
-userRouter.patch('/:username', async (req, res) => {
+userRouter.patch('/:username',checkAuthorizationTokenMiddleware ,checkRoleMiddleware(['admin']),
+     async (req, res) => {
     try {
         const { username } = req.params;
         const updatedUser = await userService.updateUser(username, req.body);
@@ -74,7 +75,8 @@ userRouter.patch('/:username', async (req, res) => {
 });
 
 //DELETE (Eliminar)
-userRouter.delete('/:username', async (req, res) => {
+userRouter.delete('/:username', checkAuthorizationTokenMiddleware, checkRoleMiddleware(['admin']),
+    async (req, res) => {
     try {
         const { username } = req.params;
         const deletedUser = await userService.deleteUser(username);

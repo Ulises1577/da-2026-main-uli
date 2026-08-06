@@ -7,11 +7,13 @@ const loginRouter = express.Router();
 
 loginRouter.post('/', async (req, res, next) => {
     try {
-        const result = await loginService.login(req.body);
+        const login = await loginService.login(req.body);
+
+        res.setHeader('Authorization', `Bearer ${login.authorizationToken}`);
+
         res.status(200).json({
-            username: result.username,
-            email: result.email,
-            role: result.role
+            username: login.username,
+            role: login.role
         });
     } catch (error) {
         next(error);

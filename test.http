@@ -1,9 +1,62 @@
-### HTTP Request
+### 1. LOGIN DE ADMINISTRADOR
+# @name loginAdmin
+POST http://localhost:3000/login
+Content-Type: application/json
 
-### REGISTRAR NUEVO USUARIO 
+{
+    "username": "ulises_admin",
+    "password": "mi-clave-segura"
+}
+
+###
+
+### 2. CREAR NUEVO USUARIO (Usando el token del Login)
 POST http://localhost:3000/users
 Content-Type: application/json
-Authorization: Bearer {login.response.body.authorizationToken}}
+Authorization: {{loginAdmin.response.headers.Authorization}}
+
+{
+    "username": "nuevo_usuario_4",
+    "email": "nuevo@correo.com",
+    "password": "clave-del-nuevo",
+    "role": "user"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### REGISTRAR NUEVO USUARIO DESPUES DE LOGUEADO 
+POST http://localhost:3000/users
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.authorizationToken}}
 
 {
     "username": "ulises_usuario",
@@ -17,7 +70,6 @@ Authorization: Bearer {login.response.body.authorizationToken}}
 
 POST http://localhost:3000/users
 Content-Type: application/json
-Authorization: Bearer {{login.response.body.authorizationToken}}
 
 {
     "username": "ulises_admin",

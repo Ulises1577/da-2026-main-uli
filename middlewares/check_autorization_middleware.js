@@ -11,8 +11,6 @@ const checkAuthorizationTokenMiddleware =  async (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-    // Aquí iría la lógica para verificar el token
-
     try {
         const session = await dependencies.sessionService.getByToken(token);
 
