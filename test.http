@@ -4,8 +4,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "username": "ulises_admin",
-    "password": "mi-clave-segura"
+    "username": "nuevo_usuario_1",
+    "password": "clave-del-nuevo"
 }
 
 ###
@@ -13,10 +13,10 @@ Content-Type: application/json
 ### 2. CREAR NUEVO USUARIO (Usando el token del Login)
 POST http://localhost:3000/users
 Content-Type: application/json
-Authorization: {{loginAdmin.response.headers.Authorization}}
+Authorizatization: {{loginAdmin.response.headers.Authorization}}
 
 {
-    "username": "nuevo_usuario_5",
+    "username": "nuevo_usuario_6",
     "email": "nuevo@correo.com",
     "password": "clave-del-nuevo",
     "role": "user"
