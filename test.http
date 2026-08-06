@@ -16,111 +16,38 @@ Content-Type: application/json
 Authorization: {{loginAdmin.response.headers.Authorization}}
 
 {
-    "username": "nuevo_usuario_4",
+    "username": "nuevo_usuario_5",
     "email": "nuevo@correo.com",
     "password": "clave-del-nuevo",
     "role": "user"
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### REGISTRAR NUEVO USUARIO DESPUES DE LOGUEADO 
-POST http://localhost:3000/users
-Content-Type: application/json
-Authorization: Bearer {{login.response.body.authorizationToken}}
-
-{
-    "username": "ulises_usuario",
-    "email": "ulises_usuario@correo.com",
-    "password": "mi-clave-segura",
-    "role": "user"
-}
-
-
-### USUARIO ADMIN
-
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "username": "ulises_admin",
-    "email": "ulises_admin@correo.com",
-    "password": "mi-clave-segura",
-    "role": "admin"
-}
-
-### Login usuario sin permisos de administrador
-# @name login
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-  "username": "ulises_admin",
-  "password": "mi-clave-segura"
-}
-
-### Login usuario con permisos de administrador
-# @name login
-POST http://localhost:3000/login
-Content-Type: application/json
-
-{
-  "username": "ulises_admin",
-  "password": "mi-clave-segura"
-}
-
 ### VER LISTA DE USUARIOS (Usa el token dinámico del paso anterior para la autorización)
 GET http://localhost:3000/users
-Authorization: Bearer {{login.response.body.authorizationToken}}
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
 ###
-PATCH http://localhost:3000/users/ulises_usuario
+PATCH http://localhost:3000/users/nuevo_usuario_5
 Content-Type: application/json
-Authorization: Bearer {{login.response.body.authorizationToken}}
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
 {
-    "username": "ulises_usuario10",
+    "username": "ulises_BORRAR",
     "email": "ulises_usuario10@correo.com"
 }
 
 ###
-DELETE http://localhost:3000/users/ulises_usuario10
+DELETE http://localhost:3000/users/ulises_BORRAR
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
 
 
 
-### CREAR TURNO
+### CREAR TURNO PRUEBAS 1
 POST http://localhost:3000/appointments
 Content-Type: application/json
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
 { 
     "clientName": "Luciano",
@@ -129,54 +56,33 @@ Content-Type: application/json
     "service": "Barba"
 }
 
+### CREAR TURNO PRUEBAS 2
+POST http://localhost:3000/appointments
+Content-Type: application/json
+Authorization: {{loginAdmin.response.headers.Authorization}}
+
+{ 
+    "clientName": "Ulises",
+    "clientEmail": "ulises@correo.com",
+    "date": "2026-10-10T19:30:00.000Z", 
+    "service": "Corte de pelo"
+}
+
 ### VER TODOS LOS TURNOS
 GET http://localhost:3000/appointments
+Authorization: {{loginAdmin.response.headers.Authorization}}
+
 
 ### CAMBIAR ESTADO DE UN TURNO
-PATCH http://localhost:3000/appointments/6a471c49816cae1748a8a3cd/status
+PATCH http://localhost:3000/appointments/6a74e6c5c4255f982f2f3e91/status
 Content-Type: application/json
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
 {
     "status": "confirmed"
 }
 
 ### BORRAR UN TURNO
-DELETE http://localhost:3000/appointments/6a73c32eaa1050c133c41b78
+DELETE http://localhost:3000/appointments/6a74e6c5c4255f982f2f3e91
+Authorization: {{loginAdmin.response.headers.Authorization}}
 
-
-
-### OTROS EJEMPLOS DE PETICIONES
-GET http://localhost:3000/users
-
-###
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "username": "Luciano",
-    "email": "maldito@gmail.com"
-}
-
-### 
-POST http://localhost:3000/users
-Content-Type: application/json
-
-{
-    "username": "Ermac",
-    "email": "ulisesgabriel@gmail.com"
-}
-
-###
-PATCH http://localhost:3000/users/Ulises
-Content-Type: application/json
-
-{
-    "username": "Prueba",
-    "email": "prueba@gmail.com"
-}
-
-### 
-GET http://localhost:3000/users/Ulises
-
-### 
-DELETE http://localhost:3000/users/Ermac

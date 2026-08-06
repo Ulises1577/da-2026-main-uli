@@ -68,7 +68,11 @@ userRouter.patch('/:username',checkAuthorizationTokenMiddleware ,checkRoleMiddle
         if (!updatedUser) {
             return res.status(404).json({ error: "Usuario no encontrado" });
         }
-        res.status(200).json(updatedUser);
+        res.status(200).json({
+            username: updatedUser.username,
+            email: updatedUser.email,
+            role: updatedUser.role
+        });
     } catch (error) {
         res.status(500).json({ error: "Error al crear usuario" , details: error.message });
     }

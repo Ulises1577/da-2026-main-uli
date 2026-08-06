@@ -3,7 +3,7 @@ export class AppointmentService {
         this.appointmentModel = appointmentModel;
     }
 
-    async scheduleAppointment(data) {
+    async  scheduleAppointment(data) {
         const appointmentDate = new Date(data.date);
         if (appointmentDate < new Date()) {
             throw new Error('No se puede programar una cita a una fecha pasada.');
